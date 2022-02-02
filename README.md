@@ -29,7 +29,7 @@ The sub_conversation.py also calculates or retrieves the quantitative conversati
 
 Data is stored and accessed in two separate collections using mongo.db. The "stream_collection" of the local database keeps the index tweets and their metadata fields, their respective OFC, CUC, and CTC values, and additional entry fields for manual annotation. The "conversations_collection" holds all the conversation tweets and additional tags.
 
-# In development
+# Still in development
 
 - sub-conversation user count, sub-conversation tweet count
 - a 'delete script' is developed to achieve data minimization: after the conversation metrics have been calculated, it deletes irrelevant tweets that are not part of the sub-conversation or reply chain in which the index tweet originally appeared.
