@@ -68,41 +68,6 @@ if "public_metrics" in conversation_tweet["data"]:
                            "data.public_metrics.quote_count": quote_count}}
     stream_col.update_many(db_query,new_values)
 
-# create specific conversation-tree and assign a generated sub-conversation id
-sub_conversation_id = str(uuid4())
-has_response = 0
-
-# get following conversations
-x = 1
-tweet_id = original_tweet_id
-while x == 1:
-    for r in response:
-        if "referenced_tweets" not in r["data"]:
-            continue
-        if r["data"]["referenced_tweets"][0]["id"] == tweet_id:
-            r["sub_conversation_id"] = sub_conversation_id
-            x += 1
-            tweet_id = r["data"]["id"]
-            has_response = 1
-            break
-    x -= 1
-
-# get past conversations
-x = 1
-referenced_id = original_referenced_id
-while x == 1 and referenced_id != "0" and referenced_id != conv_id:
-    for r in response:
-        if referenced_id == r["data"]["id"]:
-            print(r["data"]["id"])
-            r["sub_conversation_id"] = sub_conversation_id
-            x += 1
-            if "referenced_tweets" not in r["data"]:
-                x += 1
-                break
-            referenced_id = r["data"]["referenced_tweets"][0]["id"]
-            break
-    x -= 1
-
 # add matching rule tag to conversation response and add to database
 for r in response:
     r["matching_rules"] = [{"tag": tweet["matching_rules"][0]["tag"]}]
