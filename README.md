@@ -6,7 +6,7 @@ This tool collects tweets and conversations by using Twitter's API V2 filtered s
 
 The aim of the tool is to assist researcher in the identification and filtering of tweets based on their conversational context. To do so, it employs a series of quantitative indicators, some of which are provided by Twitter directly while others must be calculated after tweets have been captured. Currently, the tool retrieves or generates the following indicators and assigns them to each document in the database (i.e., to each tweet object): 
 
-- the follower count of the original account who started the conversation (origin follower count),
+- the follower count of the original account who started the conversation (origin follower count/ OFC),
 - the conversation user count (CUC), 
 - the conversation tweet count (CTC).
 
