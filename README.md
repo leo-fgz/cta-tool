@@ -22,7 +22,7 @@ The stream.py runs the script for retrieving tweets ("index tweets") from the fi
 
 The get_conversation.py identifies for which tweets in the "stream_collection" a conversation has not yet been retrieved. Matching results are then handled by the sub_conversation.py. The script uses the search endpoint of the Twitter API and retrieves the entire conversation of each index tweet in the "stream_collection" after 7 days have passed and stores them in the "conversations_collection".
 
-The sub_conversation.py calculates or retrieves the quantitative conversational indicators mentioned above (OFC, CUC, CTC, has response) and adds these values to the "stream_collection" of the local database. It also appends a "subconversation ID" to tweets in the "conversation_collection" that are part of a nested reply chain (with a depth of at least two tweets).
+The sub_conversation.py calculates or retrieves the quantitative conversational indicators mentioned above (OFC, CUC, CTC) and adds these values to the "stream_collection" of the local database. It also appends a "subconversation ID" to tweets in the "conversation_collection" that are part of a nested reply chain (with a depth of at least two tweets).
 
 # Database
 
@@ -31,7 +31,7 @@ Data is stored and accessed in two separate collections using mongo.db. The "str
 # Resources/ Dependencies
 
 - pymongo
-- python-dateutil
+- dateutil
 - requests
 - UUID
 
