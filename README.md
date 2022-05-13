@@ -37,4 +37,4 @@ Data is stored and accessed in two separate collections using mongo.db. The "str
 
 # Credits
 
-The tool is developed as part of a research project at the [Konstanz section of the Research Institute Social Cohesion](https://www.uni-konstanz.de/en/research-institute-social-cohesion-risc/about-us/).
+The tool is developed as part of a research project at the [Konstanz section of the Research Institute Social Cohesion](https://www.uni-konstanz.de/en/research-institute-social-cohesion-risc/).
