@@ -35,7 +35,7 @@ Data is stored and accessed in two separate collections using mongo.db. The "str
 - pymongo
 - dateutil
 - requests
-- UUID
+- nanoid
 
 # Credits
 
