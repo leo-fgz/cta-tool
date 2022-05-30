@@ -1,24 +1,23 @@
-from uuid import uuid4
+import nanoid
 from pymongo import MongoClient
 from config import CONVERSATIONS_COLLECTION, STREAM_COLLECTION, DB_ADDRESS, MONGO_DB_NAME
 
 db_client = MongoClient(DB_ADDRESS)
 db = db_client[MONGO_DB_NAME]
-stream_col = db["STREAM_COLLECTION"]
-conversations_col = db["CONVERSATIONS_COLLECTION"]
+stream_col = db[STREAM_COLLECTION]
+conversations_col = db[CONVERSATIONS_COLLECTION]
 
 stream_collection = stream_col.find({"matching_rules.tag": "MY_MATCHING_RULES_TAG"})
 counter = 0
 for index_tweet in stream_collection:
     counter += 1
     print(counter)
+    conversation_id=index_tweet["data"]["conversation_id"]
     
     #get index tweet
     index_tweet_id = index_tweet["data"]["id"]
-    conversation = conversations_col.find({"data.conversation_id": conversation_id})
 
-
-    sub_conversation_id = uuid4()
+    sub_conversation_id = nanoid.generate()
     new_values = {"$set": {"sub_conversation_id": sub_conversation_id}}
     tweet_ids = [index_tweet_id]
 
@@ -42,6 +41,8 @@ for index_tweet in stream_collection:
 
         # in case there are multiple referenced tweets add them to list
         for referenced_id in index_tweet["data"]["referenced_tweets"]:
+            if referenced_id==conversation_id:
+                continue
             referenced_ids.append(referenced_id["id"])
         
         # loop through referenced ids in case there are multiple referenced tweets in index tweet
