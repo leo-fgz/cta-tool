@@ -6,7 +6,7 @@ This tool collects tweets and conversations by using Twitter's API V2 filtered s
 
 The aim of the tool is to assist researcher in the identification and filtering of tweets based on their conversational context. To do so, it employs a series of quantitative indicators, some of which are provided by Twitter directly while others must be calculated after tweets have been captured. Currently, the tool retrieves or generates the following indicators and assigns them to each document in the database (i.e., to each tweet object): 
 
-- the follower count of the original account who started the conversation (origin follower count),
+- the follower count of the original account who started the conversation (origin follower count/ OFC),
 - the conversation user count (CUC), 
 - the conversation tweet count (CTC).
 
@@ -22,7 +22,9 @@ The stream.py runs the script for retrieving tweets ("index tweets") from the fi
 
 The get_conversation.py identifies for which tweets in the "stream_collection" a conversation has not yet been retrieved. Matching results are then handled by the sub_conversation.py. The script uses the search endpoint of the Twitter API and retrieves the entire conversation of each index tweet in the "stream_collection" after 7 days have passed and stores them in the "conversations_collection".
 
-The sub_conversation.py calculates or retrieves the quantitative conversational indicators mentioned above (OFC, CUC, CTC) and adds these values to the "stream_collection" of the local database. It also appends a "subconversation ID" to tweets in the "conversation_collection" that are part of a nested reply chain (with a depth of at least two tweets).
+The sub_conversation.py calculates or retrieves the quantitative conversational indicators mentioned above (OFC, CUC, CTC), adds these values to the "stream_collection" of the local database and updates the public metrics of the index tweets. 
+
+The subconv_id.py needs to called separately after retrieval of the conversations is complete. This script assigns a subconversation ID to tweets in the "conversation_collection" that are part of a nested reply chain (with a depth of at least two tweets).
 
 # Database
 
@@ -33,7 +35,7 @@ Data is stored and accessed in two separate collections using mongo.db. The "str
 - pymongo
 - dateutil
 - requests
-- UUID
+- nanoid
 
 # Credits
 
